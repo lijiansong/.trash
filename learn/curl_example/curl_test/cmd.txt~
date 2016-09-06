@@ -1,0 +1,11 @@
+curl -i "https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=6yFhYifMjXc8QmubiICXBQgi&client_secret=nZn45o3X0LGx42qovumYy2mjpOiOup2E"
+
+curl -s "https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=6yFhYifMjXc8QmubiICXBQgi&client_secret=nZn45o3X0LGx42qovumYy2mjpOiOup2E"
+
+curl -X POST -H "Content-Type: application/json; charset=utf-8" -F "filename=@/home/js-lee/Desktop/data.json" "http://vop.baidu.com/server_api"
+
+curl -X POST -H "Content-Type: application/json; charset=utf-8" -d "{\"format\":\"wav\",\"rate\":8000,\"channel\":1,\"token\":\"24.21f8d9e5d87392445e7e3b72b25b2955.2592000.1463540950.282335-6291707\",\"cuid\":\"56:84:7a:fe:97:99\",\"len\":95754,\"speech\":\" \",}" "http://vop.baidu.com/server_api"
+
+compile:
+g++ -o bdvoice BaiduVR.cpp -L . -l json_linux-gcc-4.8_libmt -l curl
+g++ -o bdvoice bdvr.cpp -L . -l json_linux-gcc-4.8_libmt -l curl

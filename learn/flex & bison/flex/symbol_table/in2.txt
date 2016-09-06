@@ -1,0 +1,2 @@
+int position =100;
+position=rate*10+redis;

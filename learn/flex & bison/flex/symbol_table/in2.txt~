@@ -1,0 +1,2 @@
+position = initial + rate * 60;
+position = initial + rate * 70;

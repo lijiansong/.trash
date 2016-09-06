@@ -1,0 +1,9 @@
+position = initial + rate * 60;
+for(int i=0;i<n;++i)
+{
+    printf("%d\n",position);
+}
+if(!flag)
+{
+    position=intial+rate*30;
+}

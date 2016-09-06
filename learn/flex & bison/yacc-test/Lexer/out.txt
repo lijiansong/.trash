@@ -1,0 +1,9 @@
+type.. 1,str.. 11
+type.. 2,str.. +
+type.. 1,str.. 2
+type.. 5,str.. /
+type.. 1,str.. 5
+type.. 2,str.. +
+type.. 1,str.. 3.5
+type.. 4,str.. *
+type.. 1,str.. 20

@@ -1,0 +1,9 @@
+cc=gcc
+mycalc:calc.y calc.l
+	bison -d calc.y
+	flex calc.l
+	gcc -o $@ y.tab.c lex.yy.c
+clean:
+	rm y.tab.c
+	rm y.tab.h
+	rm mycalc
