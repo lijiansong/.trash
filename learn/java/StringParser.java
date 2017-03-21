@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 
 public class StringParser {
@@ -75,10 +77,25 @@ public class StringParser {
 						lineTmp.add(s);
 					dataList.add(lineTmp);
 				}
-				for(ArrayList<String> list : dataList){
-					for(String data:list){
-						System.out.println(data);
+//				for(ArrayList<String> list : dataList){
+//					for(String data:list){
+//						System.out.println(data);
+//					}
+//				}
+				Collections.sort(dataList, new Comparator<ArrayList<String>>() {
+
+					@Override
+					public int compare(ArrayList<String> o1, ArrayList<String> o2) {
+						// TODO Auto-generated method stub
+						//return 0;
+						return o1.get(groupByNumber).compareTo(o2.get(groupByNumber));
 					}
+				});
+				for(ArrayList<String> al:dataList){
+					for(String data:al){
+						System.out.print(data+" ");
+					}
+					System.out.println();
 				}
 				
 			}
