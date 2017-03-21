@@ -1,9 +1,7 @@
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -89,11 +87,13 @@ public class StringParser {
 					opMap.put(2, colNum);
 				}//else error
 			}
+			System.out.println("opMap: ");
 			for(Map.Entry<Integer, Integer> entry:opMap.entrySet()){
 				System.out.println(entry.getKey()+" "+entry.getValue());
 			}
 			
-			
+			Map<Integer, Integer> newOpMap=new HashMap<Integer,Integer>();
+			//java Hw1Grp3 R=/hw1/lineitem.tbl groupby:R2 res:count,avg(R3),max(R4)
 			final ArrayList<ArrayList<String> > dataList=new ArrayList<ArrayList<String> >();
 			final String path="/home/json-lee/workdir/java/hadoop/neon1-workspace/StringParser/src/test.txt";
 			File file=new File(path);
@@ -102,9 +102,22 @@ public class StringParser {
 				String line;
 				while((line=reader.readLine())!=null){
 					ArrayList<String> lineTmp=new ArrayList<String>();
-					for(String s:line.split("\\|"))
-						lineTmp.add(s);
+					String []oneLine=line.split("\\|");
+					lineTmp.add(oneLine[groupByNumber]);//groupbykey column
+					newOpMap.put(0, 0);
+					int opCounter=1;
+					for(Map.Entry<Integer, Integer> entry:opMap.entrySet()){
+						if(entry.getKey()==0)
+							continue;
+						lineTmp.add(oneLine[entry.getValue()]);
+						newOpMap.put(entry.getKey(), opCounter);
+						++opCounter;
+					}
 					dataList.add(lineTmp);
+				}
+				System.out.println("newOpMap: ");
+				for(Map.Entry<Integer, Integer> entry:newOpMap.entrySet()){
+					System.out.println(entry.getKey()+" "+entry.getValue());
 				}
 //				for(ArrayList<String> list : dataList){
 //					for(String data:list){
@@ -126,7 +139,8 @@ public class StringParser {
 					}
 					System.out.println();
 				}
-				
+				String tmp=dataList.get(0).get(groupByNumber);
+				System.out.println(tmp);
 				double value=3.147;
 				System.out.println((Math.round(value*100 )*0.01d));
 				System.out.println((int)(value*100 +0.5)/100.0);
