@@ -4,9 +4,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
 
 public class StringParser {
@@ -65,6 +67,33 @@ public class StringParser {
 			testStr="res:count,avg(R3),max(R4)";
 			System.out.println(testStr.split(":")[0]);
 			
+			Map<Integer,Integer> opMap =new HashMap<Integer, Integer>();
+			String []operation=testStr.split(":")[1].split(",");
+			for(int i=0;i<operation.length;++i){
+				if(operation[i].substring(0, 5).equals("count")){
+					//count
+					opMap.put(0, 0);
+				}
+				else if(operation[i].substring(0, 3).equals("avg")){
+					//avg(R3)
+					int _indexR=operation[i].indexOf("R");
+					int _indexRight=operation[i].indexOf(")");
+					int colNum=Integer.parseInt(operation[i].substring(_indexR+1, _indexRight));
+					opMap.put(1, colNum);
+				}
+				else if(operation[i].substring(0, 3).equals("max")){
+					//max(R4)
+					int _indexR=operation[i].indexOf("R");
+					int _indexRight=operation[i].indexOf(")");
+					int colNum=Integer.parseInt(operation[i].substring(_indexR+1, _indexRight));
+					opMap.put(2, colNum);
+				}//else error
+			}
+			for(Map.Entry<Integer, Integer> entry:opMap.entrySet()){
+				System.out.println(entry.getKey()+" "+entry.getValue());
+			}
+			
+			
 			final ArrayList<ArrayList<String> > dataList=new ArrayList<ArrayList<String> >();
 			final String path="/home/json-lee/workdir/java/hadoop/neon1-workspace/StringParser/src/test.txt";
 			File file=new File(path);
@@ -97,6 +126,12 @@ public class StringParser {
 					}
 					System.out.println();
 				}
+				
+				double value=3.147;
+				System.out.println((Math.round(value*100 )*0.01d));
+				System.out.println((int)(value*100 +0.5)/100.0);
+				System.out.println(Double.parseDouble(new DecimalFormat("#.##").format(value)));
+				System.out.println(Double.parseDouble(String.format("%.2f", value)));
 				
 			}
 			else{
