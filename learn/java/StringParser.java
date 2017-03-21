@@ -1,9 +1,16 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class StringParser {
 	
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		if(args.length==3){
 			//java Hw1Grp3 R=/hw1/lineitem.tbl groupby:R2 res:count,avg(R3),max(R4)
@@ -55,6 +62,30 @@ public class StringParser {
 			System.out.println(groupByNumber);
 			testStr="res:count,avg(R3),max(R4)";
 			System.out.println(testStr.split(":")[0]);
+			
+			final ArrayList<ArrayList<String> > dataList=new ArrayList<ArrayList<String> >();
+			final String path="/home/json-lee/workdir/java/hadoop/neon1-workspace/StringParser/src/test.txt";
+			File file=new File(path);
+			if(file.isFile()&&file.exists()){
+				BufferedReader reader=new BufferedReader(new FileReader(file));
+				String line;
+				while((line=reader.readLine())!=null){
+					ArrayList<String> lineTmp=new ArrayList<String>();
+					for(String s:line.split("\\|"))
+						lineTmp.add(s);
+					dataList.add(lineTmp);
+				}
+				for(ArrayList<String> list : dataList){
+					for(String data:list){
+						System.out.println(data);
+					}
+				}
+				
+			}
+			else{
+				System.out.println("File doesn't exist!");
+			}
+			
 		}
 		
 		
