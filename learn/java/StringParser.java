@@ -110,8 +110,10 @@ public class StringParser {
 						if(entry.getKey()==0)
 							continue;
 						lineTmp.add(oneLine[entry.getValue()]);
-						newOpMap.put(entry.getKey(), opCounter);
-						++opCounter;
+						if(!newOpMap.containsKey(entry.getKey())){
+							newOpMap.put(entry.getKey(), opCounter);
+							++opCounter;
+						}
 					}
 					dataList.add(lineTmp);
 				}
@@ -130,7 +132,7 @@ public class StringParser {
 					public int compare(ArrayList<String> o1, ArrayList<String> o2) {
 						// TODO Auto-generated method stub
 						//return 0;
-						return o1.get(groupByNumber).compareTo(o2.get(groupByNumber));
+						return o1.get(0).compareTo(o2.get(0));
 					}
 				});
 				for(ArrayList<String> al:dataList){
@@ -139,13 +141,34 @@ public class StringParser {
 					}
 					System.out.println();
 				}
-				String tmp=dataList.get(0).get(groupByNumber);
+				
+				//get count
+				//String tmp=dataList.get(0).get(groupByNumber);
+				String tmp=dataList.get(0).get(0);
 				System.out.println(tmp);
-				double value=3.147;
-				System.out.println((Math.round(value*100 )*0.01d));
-				System.out.println((int)(value*100 +0.5)/100.0);
-				System.out.println(Double.parseDouble(new DecimalFormat("#.##").format(value)));
-				System.out.println(Double.parseDouble(String.format("%.2f", value)));
+				int count=1;
+				for(ArrayList<String> tmpList:dataList){
+					if(!tmp.equals(tmpList.get(0))){
+						++count;
+						tmp=tmpList.get(0);
+					}
+				}
+				System.out.println("count: "+count);
+				
+				// get avg and get max
+				for(Map.Entry<Integer, Integer> entry:newOpMap.entrySet()){
+					//System.out.println(entry.getKey()+" "+entry.getValue());
+					
+				}
+				//get avg
+				for(ArrayList<String> tmpList:dataList){
+					
+				}
+//				double value=3.147;
+//				System.out.println((Math.round(value*100 )*0.01d));
+//				System.out.println((int)(value*100 +0.5)/100.0);
+//				System.out.println(Double.parseDouble(new DecimalFormat("#.##").format(value)));
+//				System.out.println(Double.parseDouble(String.format("%.2f", value)));
 				
 			}
 			else{
