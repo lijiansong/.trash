@@ -147,14 +147,15 @@ public class StringParser {
 				String tmp=dataList.get(0).get(0);
 				//System.out.println(tmp);
 				int count=0;
+				int tmpcounter=0;
 				//System.out.println(newOpMap.size());
 				double []result=new double[newOpMap.size()];
 				Arrays.fill(result, 0);
-				System.out.println("======dataList size: "+dataList.size());
+				//System.out.println("======dataList size: "+dataList.size());
 				for(ArrayList<String> tmpList:dataList){
-					System.out.println("----tmpList.get(0): "+tmpList.get(0));
+					//System.out.println("----tmpList.get(0): "+tmpList.get(0));
 					if(!tmp.equals(tmpList.get(0))){//different
-						System.out.println("------tmp: "+tmp);
+						//System.out.println("------tmp: "+tmp);
 						//display the result
 						for(Map.Entry<Integer, Integer> entry:newOpMap.entrySet()){
 							//System.out.println(entry.getKey()+" "+entry.getValue());
@@ -199,6 +200,26 @@ public class StringParser {
 					}
 					
 				}//end of for Map iterator
+				for(Map.Entry<Integer, Integer> entry:newOpMap.entrySet()){
+					//System.out.println(entry.getKey()+" "+entry.getValue());
+					switch (entry.getKey()) {
+					case 0:
+						System.out.println("count: "+count);
+						break;
+					case 1:
+						System.out.println("avg: "+new DecimalFormat("##0.00").format(result[entry.getKey()]/count)+" "+result[entry.getKey()]/count);
+						break;
+					case 2:
+						System.out.println("max: "+result[entry.getKey()]);
+						break;
+					default:
+						break;
+					}
+				}
+				count=0;
+				//tmp=tmpList.get(0);
+				//System.out.println("------tmp: "+tmp);
+				Arrays.fill(result, 0);
 				
 //				double value=3.147;
 //				System.out.println((Math.round(value*100 )*0.01d));
