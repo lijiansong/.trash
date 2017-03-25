@@ -147,7 +147,6 @@ public class StringParser {
 				String tmp=dataList.get(0).get(0);
 				//System.out.println(tmp);
 				int count=0;
-				int tmpcounter=0;
 				//System.out.println(newOpMap.size());
 				double []result=new double[newOpMap.size()];
 				Arrays.fill(result, 0);
@@ -164,10 +163,10 @@ public class StringParser {
 								System.out.println("count: "+count);
 								break;
 							case 1:
-								System.out.println("avg: "+new DecimalFormat("##0.00").format(result[entry.getKey()]/count)+" "+result[entry.getKey()]/count);
+								System.out.println("avg(R"+opMap.get(entry.getKey())+"): "+new DecimalFormat("##0.00").format(result[entry.getKey()]/count)+" "+result[entry.getKey()]/count);
 								break;
 							case 2:
-								System.out.println("max: "+result[entry.getKey()]);
+								System.out.println("max(R"+opMap.get(entry.getKey())+ "): "+result[entry.getKey()]);
 								break;
 							default:
 								break;
