@@ -4,7 +4,7 @@
 70|ddd|hbase|44|80|
 90|eee|docker|55|42|
 20|aaa|kafka|22|10|
-45|bbb|kafka|33|15|
+45|bbb|kafka|10000|15|
 60|ccc|hadoop|11|27|
 70|ddd|hbase|44|80|
 90|eee|docker|55|42|

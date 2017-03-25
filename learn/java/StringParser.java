@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -142,42 +143,73 @@ public class StringParser {
 					System.out.println();
 				}
 				
-				//get count
 				//String tmp=dataList.get(0).get(groupByNumber);
 				String tmp=dataList.get(0).get(0);
-				System.out.println(tmp);
-				int count=1;
+				//System.out.println(tmp);
+				int count=0;
+				//System.out.println(newOpMap.size());
+				double []result=new double[newOpMap.size()];
+				Arrays.fill(result, 0);
+				System.out.println("======dataList size: "+dataList.size());
 				for(ArrayList<String> tmpList:dataList){
-					if(!tmp.equals(tmpList.get(0))){
-						++count;
+					System.out.println("----tmpList.get(0): "+tmpList.get(0));
+					if(!tmp.equals(tmpList.get(0))){//different
+						System.out.println("------tmp: "+tmp);
+						//display the result
+						for(Map.Entry<Integer, Integer> entry:newOpMap.entrySet()){
+							//System.out.println(entry.getKey()+" "+entry.getValue());
+							switch (entry.getKey()) {
+							case 0:
+								System.out.println("count: "+count);
+								break;
+							case 1:
+								System.out.println("avg: "+new DecimalFormat("##0.00").format(result[entry.getKey()]/count)+" "+result[entry.getKey()]/count);
+								break;
+							case 2:
+								System.out.println("max: "+result[entry.getKey()]);
+								break;
+							default:
+								break;
+							}
+						}
+						count=0;
 						tmp=tmpList.get(0);
+						//System.out.println("------tmp: "+tmp);
+						Arrays.fill(result, 0);
 					}
-				}
-				System.out.println("count: "+count);
+					
+					++count;
+					//System.out.println("------count: "+count);
+					//scan newOpMap
+					for(Map.Entry<Integer, Integer> entry:newOpMap.entrySet()){
+						switch (entry.getKey()) {
+//						case 0:
+//							++count;
+//							break;
+						case 1:
+							result[entry.getKey()]+=Double.valueOf(tmpList.get(entry.getValue()));
+							break;
+						case 2:
+							if(result[entry.getKey()] - Double.valueOf(tmpList.get(entry.getValue())) < 1e-6)
+								result[entry.getKey()]=Double.valueOf(tmpList.get(entry.getValue()));
+							break;
+						default:
+							break;
+						}
+					}
+					
+				}//end of for Map iterator
 				
-				// get avg and get max
-				for(Map.Entry<Integer, Integer> entry:newOpMap.entrySet()){
-					//System.out.println(entry.getKey()+" "+entry.getValue());
-					
-				}
-				//get avg
-				for(ArrayList<String> tmpList:dataList){
-					
-				}
 //				double value=3.147;
 //				System.out.println((Math.round(value*100 )*0.01d));
 //				System.out.println((int)(value*100 +0.5)/100.0);
 //				System.out.println(Double.parseDouble(new DecimalFormat("#.##").format(value)));
-//				System.out.println(Double.parseDouble(String.format("%.2f", value)));
-				
+//				System.out.println(Double.parseDouble(String.format("%.2f", value)));	
 			}
 			else{
 				System.out.println("File doesn't exist!");
-			}
-			
+			}	
 		}
-		
-		
 	}
 
 }
