@@ -247,6 +247,50 @@ public class StringParse {
 //				count=0;
 //				Arrays.fill(result, 0);
 //				result[2]=Double.MIN_VALUE;
+				str="java Hw1GrpX R=/test1.txt S=/test2.txt join:R2=S3 res:R4,S5";
+				str="join:R2=S3";
+				int rJoinKey=Integer.valueOf(str.substring(str.indexOf("R")+1, str.indexOf("=")));
+				int sJoinKey=Integer.valueOf(str.substring(str.indexOf("S")+1));
+				System.out.println(rJoinKey+" "+sJoinKey);
+				str="res:R4,S5";
+				String []resKey=str.split(":")[1].split(",");
+				for(String s: resKey){
+					System.out.println(s);
+				}
+				final String sFilePath="/home/json-lee/workdir/java/hadoop/neon1-workspace/StringParser/src/test.txt";
+				File sFile=new File(sFilePath);
+				Hashtable<String, ArrayList<ArrayList<String>>> htable = new Hashtable<String, ArrayList<ArrayList<String>>>();
+				ArrayList<ArrayList<String>> value = null;
+		        ArrayList<String> _value = null;
+				if(sFile.isFile()&&sFile.exists()){
+					BufferedReader br=new BufferedReader(new FileReader(file));
+					String lineTmp;
+					while((lineTmp=br.readLine())!=null){
+						String[] tuple=lineTmp.split("\\|");
+						_value=new ArrayList<String>();
+						for(String tmp:tuple){
+							_value.add(tmp);
+						}
+						value=new ArrayList<ArrayList<String>>();
+						if(htable.containsKey(tuple[2])){
+							for(ArrayList<String> tmp:htable.get(tuple[2])) value.add(tmp);
+						}
+						value.add(_value);
+						htable.put(tuple[2], value);
+					}
+					br.close();
+				}
+				for(Entry<String, ArrayList<ArrayList<String>>> entry:htable.entrySet()){
+					System.out.print("key: "+entry.getKey()+" value: ");
+					for(ArrayList<String> arrayStr:entry.getValue()){
+						for(String _str:arrayStr){
+							System.out.print(_str+" ");
+						}
+						System.out.println();
+					}
+				}
+				
+				
 			}
 			else{
 				System.out.println("File doesn't exist!");

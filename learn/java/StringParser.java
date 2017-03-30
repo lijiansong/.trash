@@ -225,6 +225,7 @@ public class StringParser {
 //				System.out.println((int)(value*100 +0.5)/100.0);
 //				System.out.println(Double.parseDouble(new DecimalFormat("#.##").format(value)));
 //				System.out.println(Double.parseDouble(String.format("%.2f", value)));	
+				
 			}
 			else{
 				System.out.println("File doesn't exist!");
